@@ -376,7 +376,7 @@ const UniquePortfolio = () => {
 
   const ResumeButton = () => (
     <a
-      href="/resume_mohit.pdf"
+      href="https://drive.google.com/file/d/10w7ADlWPSOxkltF7ucb3BIG5nSH0mLMl/view?usp=sharing"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl shadow-lg flex items-center gap-2 hover:from-green-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-300 font-semibold"
