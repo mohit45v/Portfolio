@@ -1,7 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Github, Linkedin, Mail, ExternalLink, Download, MapPin, Briefcase, Rocket, Code2, Sparkles } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Github, Linkedin, Mail, ExternalLink, Download, MapPin, Briefcase, Rocket, Code2, Sparkles, Heart, Coffee } from 'lucide-react';
 
 const projects = [
+  {
+    id: 'avalon',
+    title: 'Avalon 2025',
+    description: 'Official techfest site with realtime updates and registration.',
+    tech: ['HTML', 'CSS', 'JS', 'GSAP'],
+    link: 'https://github.com/mohit45v/Avalon2025',
+    highlight: 'Pinned • Live production usage',
+  },
   {
     id: 'invoisify',
     title: 'Invoisify',
@@ -9,14 +17,6 @@ const projects = [
     tech: ['MERN', 'Tailwind', 'JWT', 'PDF'],
     link: 'https://github.com/TanishqMSD/invoisify',
     highlight: 'Operations-grade reliability',
-  },
-  {
-    id: 'avalon',
-    title: 'Avalon 2025',
-    description: 'Official techfest site with realtime updates and registration.',
-    tech: ['HTML', 'CSS', 'JS', 'GSAP'],
-    link: 'https://github.com/mohit45v/Avalon2025',
-    highlight: 'Live production usage',
   },
   {
     id: 'influenceiq',
@@ -109,6 +109,57 @@ export default function PrimeApp() {
 
   const year = useMemo(() => new Date().getFullYear(), []);
 
+  // Active section highlighting
+  const [active, setActive] = useState('projects');
+  const projectsRef = useRef(null);
+  const experienceRef = useRef(null);
+  const skillsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    const sections = [
+      { id: 'projects', el: projectsRef },
+      { id: 'experience', el: experienceRef },
+      { id: 'skills', el: skillsRef },
+      { id: 'contact', el: contactRef },
+    ];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-section-id');
+            if (id) setActive(id);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 }
+    );
+    sections.forEach(s => s.el.current && observer.observe(s.el.current));
+    return () => observer.disconnect();
+  }, []);
+
+  // Like button state with persistence
+  const LIKE_KEY = 'portfolio_like_v1';
+  const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(false);
+  useEffect(() => {
+    const stored = localStorage.getItem(LIKE_KEY);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setLikes(parsed.count || 0);
+        setLiked(Boolean(parsed.liked));
+      } catch {}
+    }
+  }, []);
+  const toggleLike = () => {
+    const nextLiked = !liked;
+    const nextCount = nextLiked ? likes + 1 : Math.max(0, likes - 1);
+    setLiked(nextLiked);
+    setLikes(nextCount);
+    localStorage.setItem(LIKE_KEY, JSON.stringify({ count: nextCount, liked: nextLiked }));
+  };
+
   return (
     <div className="min-h-screen text-white bg-[#0b0f14] selection:bg-cyan-400/30 selection:text-white">
       <GradientBackground />
@@ -120,10 +171,10 @@ export default function PrimeApp() {
             <span className="font-semibold tracking-wide">MOHIT.DEV</span>
           </div>
           <nav className="hidden sm:flex items-center gap-3">
-            <a href="#projects" className="text-sm text-white/80 hover:text-white">Projects</a>
-            <a href="#experience" className="text-sm text-white/80 hover:text-white">Experience</a>
-            <a href="#skills" className="text-sm text-white/80 hover:text-white">Skills</a>
-            <a href="#contact" className="text-sm text-white/80 hover:text-white">Contact</a>
+            <a href="#projects" className={`text-sm hover:text-white ${active === 'projects' ? 'text-white' : 'text-white/80'}`}>Projects</a>
+            <a href="#experience" className={`text-sm hover:text-white ${active === 'experience' ? 'text-white' : 'text-white/80'}`}>Experience</a>
+            <a href="#skills" className={`text-sm hover:text-white ${active === 'skills' ? 'text-white' : 'text-white/80'}`}>Skills</a>
+            <a href="#contact" className={`text-sm hover:text-white ${active === 'contact' ? 'text-white' : 'text-white/80'}`}>Contact</a>
           </nav>
           <a
             href="https://drive.google.com/file/d/10w7ADlWPSOxkltF7ucb3BIG5nSH0mLMl/view?usp=sharing"
@@ -157,7 +208,7 @@ export default function PrimeApp() {
               </div>
               <div className="mt-7 flex items-center gap-3">
                 <a href="#projects" className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-white/90">View work</a>
-                <a href="mailto:mohit@example.com" className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white/90">Let’s talk</a>
+                <a href="mailto:mohit.dhangar88@gmail.com" className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white/90">Let’s talk</a>
               </div>
               <div className="mt-6 flex items-center gap-4 text-white/70">
                 <span className="inline-flex items-center gap-1 text-sm"><MapPin className="w-4 h-4" /> India</span>
@@ -189,11 +240,11 @@ export default function PrimeApp() {
         </section>
 
         {/* Projects */}
-        <section id="projects" className="py-8">
+        <section id="projects" data-section-id="projects" ref={projectsRef} className="py-8">
           <SectionTitle icon={Code2} title="Featured projects" subtitle="What I build reflects how I think: simple, scalable, and tasteful." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map(p => (
-              <a key={p.id} href={p.link} target="_blank" rel="noreferrer" className="group rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-cyan-400/60 transition-all hover:-translate-y-0.5">
+              <a key={p.id} href={p.link} target="_blank" rel="noreferrer" className="group rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-cyan-400/60 transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-white">{p.title}</h3>
                   <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-cyan-400" />
@@ -211,7 +262,7 @@ export default function PrimeApp() {
         </section>
 
         {/* Experience */}
-        <section id="experience" className="py-10">
+        <section id="experience" data-section-id="experience" ref={experienceRef} className="py-10">
           <SectionTitle icon={Rocket} title="Experience" subtitle="Impact over titles. Ownership end‑to‑end." />
           <div className="grid md:grid-cols-2 gap-6">
             {experiences.map((e, i) => (
@@ -234,7 +285,7 @@ export default function PrimeApp() {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="py-10">
+        <section id="skills" data-section-id="skills" ref={skillsRef} className="py-10">
           <SectionTitle icon={Briefcase} title="Skills" subtitle="Breadth across the stack, depth where it matters." />
           <div className="grid md:grid-cols-2 gap-6">
             {skills.map(s => (
@@ -252,17 +303,28 @@ export default function PrimeApp() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="py-12">
+        <section id="contact" data-section-id="contact" ref={contactRef} className="py-12">
           <SectionTitle icon={Mail} title="Contact" subtitle="Let’s build something you’ll be proud to ship." />
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold">Available for opportunities</h3>
-              <p className="text-white/70 text-sm">Remote preferred • MERN • Product‑minded engineering</p>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-semibold">Available for opportunities</h3>
+                <p className="text-white/70 text-sm">Remote preferred • MERN • Product‑minded engineering</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <a href="mailto:mohit.dhangar88@gmail.com" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white text-black font-semibold hover:bg-white/90"><Mail className="w-4 h-4" /> Email</a>
+                <a href="https://github.com/mohit45v" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-white/40"><Github className="w-4 h-4" /> GitHub</a>
+                <a href="https://www.linkedin.com/in/mohit45v/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-white/40"><Linkedin className="w-4 h-4" /> LinkedIn</a>
+              </div>
             </div>
+
             <div className="flex items-center gap-3">
-              <a href="mailto:mohit@example.com" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white text-black font-semibold hover:bg-white/90"><Mail className="w-4 h-4" /> Email</a>
-              <a href="https://github.com/mohit45v" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-white/40"><Github className="w-4 h-4" /> GitHub</a>
-              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-white/40"><Linkedin className="w-4 h-4" /> LinkedIn</a>
+              <button onClick={toggleLike} aria-pressed={liked} className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors ${liked ? 'bg-rose-500 text-white border-rose-400' : 'border-white/20 hover:border-white/40 text-white'}`}>
+                <Heart className={`w-4 h-4 ${liked ? 'fill-white' : ''}`} /> {liked ? 'Liked' : 'Like'} • {likes}
+              </button>
+              <a href="https://buymeacoffee.com/developermohit" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-amber-300 to-yellow-400 text-black font-semibold hover:from-amber-200 hover:to-yellow-300">
+                <Coffee className="w-4 h-4" /> Buy me a coffee
+              </a>
             </div>
           </div>
         </section>
