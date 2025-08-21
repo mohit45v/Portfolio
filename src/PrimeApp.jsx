@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Github, Linkedin, Mail, ExternalLink, Download, MapPin, Briefcase, Rocket, Code2, Sparkles, Heart, Coffee } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink, Download, MapPin, Briefcase, Rocket, Code2, Sparkles, Heart, Coffee, Quote } from 'lucide-react';
 
 const projects = [
   {
@@ -109,6 +109,14 @@ export default function PrimeApp() {
 
   const year = useMemo(() => new Date().getFullYear(), []);
 
+  // Simple hash routing for case studies
+  const [route, setRoute] = useState(() => (window.location.hash ? window.location.hash.slice(1) : '/'));
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash ? window.location.hash.slice(1) : '/');
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
   // Active section highlighting
   const [active, setActive] = useState('projects');
   const projectsRef = useRef(null);
@@ -160,7 +168,68 @@ export default function PrimeApp() {
     localStorage.setItem(LIKE_KEY, JSON.stringify({ count: nextCount, liked: nextLiked }));
   };
 
+  // Case study: Avalon
+  const CaseStudyAvalon = () => (
+    <div className="min-h-screen text-white bg-[#0b0f14]">
+      <GradientBackground />
+      <header className="sticky top-0 z-40 border-b border-white/10 backdrop-blur-xl bg-black/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <a href="#/" className="font-semibold tracking-wide">MOHIT.DEV</a>
+          <a href="#/contact" className="text-sm text-white/80 hover:text-white">Contact</a>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs">
+          Case Study
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold">Avalon – Faster, friendlier signup flow</h1>
+        <p className="mt-2 text-white/70">Role: Full‑stack developer / integration specialist • Duration: X weeks</p>
+
+        <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <h2 className="font-semibold mb-2">Challenge (Before)</h2>
+            <ul className="list-disc list-inside text-white/80 text-sm space-y-1">
+              <li>Onboarding flow averaged 4+ minutes</li>
+              <li>35% drop‑off at verification step</li>
+              <li>No integration with modern auth tools</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <h2 className="font-semibold mb-2">Solution (What I did)</h2>
+            <ul className="list-disc list-inside text-white/80 text-sm space-y-1">
+              <li>Integrated Clerk for seamless authentication</li>
+              <li>Optimized UI with React + Tailwind for speed</li>
+              <li>API error handling + real‑time validations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+          <h2 className="font-semibold mb-2">Impact (After)</h2>
+          <ul className="list-disc list-inside text-white/80 text-sm space-y-1">
+            <li>Signup time reduced to &lt; 90 seconds</li>
+            <li>Drop‑off decreased from 35% → 12%</li>
+            <li>Cleaner handoff with modular code</li>
+          </ul>
+          <div className="mt-4 grid sm:grid-cols-2 gap-4 text-sm text-white/70">
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">Before UI (placeholder)</div>
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">After UI (placeholder)</div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex items-center gap-3">
+          <a href="#/" className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40">← Back</a>
+          <a href="#contact" className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-white/90">Let’s talk</a>
+        </div>
+      </main>
+    </div>
+  );
+
   return (
+    route === '/case-studies/avalon' ? (
+      <CaseStudyAvalon />
+    ) : (
     <div className="min-h-screen text-white bg-[#0b0f14] selection:bg-cyan-400/30 selection:text-white">
       <GradientBackground />
 
@@ -244,7 +313,7 @@ export default function PrimeApp() {
           <SectionTitle icon={Code2} title="Featured projects" subtitle="What I build reflects how I think: simple, scalable, and tasteful." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map(p => (
-              <a key={p.id} href={p.link} target="_blank" rel="noreferrer" className="group rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-cyan-400/60 transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+              <a key={p.id} href={p.id === 'avalon' ? '#/case-studies/avalon' : p.link} target={p.id === 'avalon' ? '_self' : '_blank'} rel={p.id === 'avalon' ? undefined : 'noreferrer'} className="group rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-cyan-400/60 transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-white">{p.title}</h3>
                   <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-cyan-400" />
@@ -256,6 +325,9 @@ export default function PrimeApp() {
                   ))}
                 </div>
                 <div className="mt-4 text-xs text-white/60">{p.highlight}</div>
+                {p.id === 'avalon' && (
+                  <div className="mt-3 inline-flex items-center gap-2 text-[11px] px-2 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300">Pinned</div>
+                )}
               </a>
             ))}
           </div>
@@ -281,6 +353,40 @@ export default function PrimeApp() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* What I Bring */}
+        <section className="py-10">
+          <SectionTitle icon={Briefcase} title="What I bring" subtitle="How I work and the value I deliver." />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <ul className="list-disc list-inside text-white/80 space-y-2">
+                <li>Rapid prototyping with modern stacks (MERN, Clerk, AI integrations)</li>
+                <li>Strong focus on measurable impact (time saved, conversions boosted)</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <ul className="list-disc list-inside text-white/80 space-y-2">
+                <li>Hands-on approach with production-ready code</li>
+                <li>Collaborative mindset + continuous learning</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-8">
+          <SectionTitle icon={Quote} title="Testimonials" subtitle="Short notes from collaborators." />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <p className="text-white/90">“Mohit is lightning fast at integrating APIs – he turned our vision into a working demo in less than 48 hours.”</p>
+              <p className="mt-2 text-sm text-white/60">– Client/Peer</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <p className="text-white/90">“Clean code, fast execution, and a great collaborator. Exactly the kind of dev you want on your team.”</p>
+              <p className="mt-2 text-sm text-white/60">– Mentor/Teammate</p>
+            </div>
           </div>
         </section>
 
@@ -337,6 +443,7 @@ export default function PrimeApp() {
         </div>
       </footer>
     </div>
+    )
   );
 }
 
