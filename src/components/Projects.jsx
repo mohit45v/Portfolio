@@ -66,8 +66,16 @@ const ProjectCard = ({ project, idx }) => {
 const Projects = () => {
     const projects = [
         {
+            title: "Avalon 2025",
+            desc: "Official techfest site with realtime updates and registration. Live production usage with optimized GSAP animations.",
+            tech: ["HTML", "JS", "GSAP", "Socket.io"],
+            link: "https://github.com/mohit45v/Avalon2025",
+            demo: "#",
+            color: "bg-cyan-500",
+        },
+        {
             title: "Invoisify",
-            desc: "Modern invoice management system with dynamic templates and seamless workflow automation. Built for speed and reliability.",
+            desc: "Modern invoice management system with dynamic templates and seamless workflow automation. Built with MERN stack for high reliability.",
             tech: ["React", "Node.js", "TailwindCSS", "PostgreSQL"],
             link: "https://github.com/TanishqMSD/invoisify",
             demo: "#",
@@ -75,15 +83,15 @@ const Projects = () => {
         },
         {
             title: "InfluenceIQ",
-            desc: "AI-powered social media analytics platform with sentiment analysis and engagement insights for influencers.",
-            tech: ["Next.js", "Gemini AI", "Langchain", "MongoDB"],
+            desc: "AI-powered social media analytics platform with sentiment analysis and engagement insights for influencers using GenAI and Langflow.",
+            tech: ["Next.js", "Gemini AI", "Langflow", "MongoDB"],
             link: "https://github.com/TanishqMSD/socialmedia-analyzer",
             demo: "#",
             color: "bg-purple-500",
         },
         {
             title: "CampusSync",
-            desc: "Comprehensive college management system with student portal, faculty dashboard, and real-time communication.",
+            desc: "Comprehensive college management system with student portal, faculty dashboard, and real-time communication handling live operations.",
             tech: ["React", "Express", "Socket.io", "Redis"],
             link: "https://github.com/mohit45v/hackfusion",
             demo: "#",

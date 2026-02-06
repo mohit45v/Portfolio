@@ -17,20 +17,20 @@ const Contact = () => {
                     </p>
 
                     <div className="space-y-6">
-                        <a href="mailto:mohit@example.com" className="flex items-center gap-4 group">
+                        <a href="mailto:mohit.dhangar88@gmail.com" className="flex items-center gap-4 group">
                             <div className="w-12 h-12 glass rounded-2xl flex items-center justify-center group-hover:bg-primary transition-all duration-300">
                                 <Mail className="w-5 h-5 group-hover:text-black" />
                             </div>
                             <div>
                                 <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Email me</p>
-                                <p className="text-lg font-medium">mohit@example.com</p>
+                                <p className="text-lg font-medium">mohit.dhangar88@gmail.com</p>
                             </div>
                         </a>
 
                         <div className="flex gap-4 pt-4">
                             {[
                                 { icon: <Github className="w-5 h-5" />, href: "https://github.com/mohit45v" },
-                                { icon: <Linkedin className="w-5 h-5" />, href: "#" },
+                                { icon: <Linkedin className="w-5 h-5" />, href: "https://www.linkedin.com/in/mohit45v/" },
                             ].map((social, i) => (
                                 <a
                                     key={i}

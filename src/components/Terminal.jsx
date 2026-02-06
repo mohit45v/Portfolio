@@ -12,10 +12,10 @@ const Terminal = () => {
 
     const commands = {
         help: () => 'Available commands: about, skills, projects, contact, clear, help',
-        about: () => 'I am a Full Stack Developer passionate about building premium digital experiences.',
-        skills: () => 'React, Next.js, Node.js, TypeScript, Go, AWS, Docker, Framer Motion.',
-        projects: () => 'Check out Invoisify, InfluenceIQ, and CampusSync in the projects section!',
-        contact: () => 'Email: hello@mohit.dev | GitHub: @mohit | LinkedIn: /in/mohit',
+        about: () => 'I am Mohit, a Full Stack Developer & MERN Specialist. I ship clean, production-grade systems and love polishing the last 10% of UX.',
+        skills: () => 'React, Next.js, Node.js, TypeScript, Go, MongoDB, PostgreSQL, Docker, AWS, Framer Motion, GSAP, Socket.io.',
+        projects: () => 'Avalon 2025 (Live), Invoisify (MERN), InfluenceIQ (AI Analytics), CampusSync (Real-time).',
+        contact: () => 'Email: mohit.dhangar88@gmail.com | GitHub: @mohit45v | LinkedIn: /in/mohit45v',
         clear: () => {
             setHistory([]);
             return null;

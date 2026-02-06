@@ -4,7 +4,7 @@ import { Download, ArrowRight } from 'lucide-react';
 import Magnetic from './Magnetic';
 
 const Hero = () => {
-    const roles = ["Full Stack Developer", "GenAI Enthusiast", "Problem Solver"];
+    const roles = ["Full Stack Developer", "MERN Specialist", "Webmaster Lead", "GenAI Enthusiast"];
     const [roleIndex, setRoleIndex] = React.useState(0);
 
     React.useEffect(() => {

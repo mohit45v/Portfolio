@@ -43,36 +43,47 @@ const ExperienceItem = ({ role, company, period, description, location, idx }) =
 const Experience = () => {
     const experiences = [
         {
-            role: "Full Stack Developer (Intern)",
-            company: "Top Tech MNC",
-            period: "Jun 2024 - Aug 2024",
-            location: "San Jose, CA (Remote)",
+            role: "Full Stack Developer (InfluenceIQ)",
+            company: "LevelSuperMind",
+            period: "Jan 2025",
+            location: "Remote",
             description: [
-                "Led the migration of legacy services to a modern GraphQL architecture, improving API performance by 40%.",
-                "Implemented real-time data visualization dashboards for monitoring system health across 500+ microservices.",
-                "Collaborated with senior engineers to implement high-availability strategies for PostgreSQL clusters."
+                "Built InfluenceIQ: AI-driven social analytics platform.",
+                "Integrated GenAI and Langflow for sentiment and engagement insights.",
+                "Architected data-driven dashboards for performance tracking."
             ]
         },
         {
-            role: "MERN Stack Engineer",
-            company: "Innovate Labs",
-            period: "Jan 2024 - May 2024",
-            location: "New Delhi, India",
+            role: "Full Stack Developer (CampusSync)",
+            company: "HackFusion",
+            period: "Feb 2025",
+            location: "Event",
             description: [
-                "Architected a secure authentication system using JWT and multi-layered middleware.",
-                "Developed a highly responsive web application using Next.js 14 and Tailwind CSS.",
-                "Optimized frontend performance reducing initial load time by 60% through code splitting."
+                "Developed CampusSync: a real-time college management system.",
+                "Implemented Socket.io for live communication and JWT for secure auth.",
+                "Optimized UX for multi-role dashboard management."
             ]
         },
         {
-            role: "GenAI Research & Development",
-            company: "Future AI",
-            period: "Aug 2023 - Dec 2023",
-            location: "Bengaluru, India",
+            role: "Team Lead (InternConnect)",
+            company: "HackOverflow",
+            period: "Mar 2025",
+            location: "Competition",
             description: [
-                "Fine-tuned LLM models for domain-specific conversational AI tasks.",
-                "Integrated vector databases like Pinecone for RAG-based knowledge retrieval.",
-                "Built automated testing suites for AI model output validation."
+                "Led the development of InternConnect: a freelancing platform.",
+                "Integrated secure payment gateways and cloud storage solutions.",
+                "Managed team workflows and architectural decisions."
+            ]
+        },
+        {
+            role: "Webmaster Lead",
+            company: "Avalon TechFest",
+            period: "Mar 2025",
+            location: "College",
+            description: [
+                "Led development of the official techfest site (Avalon 2025).",
+                "Implemented advanced GSAP animations and live registration ops.",
+                "Managed admin panel for real-time event updates."
             ]
         }
     ];

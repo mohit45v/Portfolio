@@ -1,0 +1,184 @@
+# Mohit Sonu Dhangar (Vaibhav)
+
+**Backend‑First Full‑Stack Engineer | AI Integrations | B2B Automation**
+Thane, India • Open to Remote & Relocation
+
+---
+
+## Professional Summary (Primary – AI‑Forward Backend Specialist)
+
+Backend‑first Full‑Stack Engineer with hands‑on experience building B2B automation platforms, API‑driven systems, and AI‑powered products. Strong in NestJS, Angular/React, and practical AI integrations (Gemini, Langflow, Meta APIs). Product‑oriented mindset with a bias toward scalable backend architecture, clean abstractions, and measurable impact. Comfortable owning features end‑to‑end—from system design to production delivery.
+
+---
+
+## Core Skills
+
+### Languages
+
+Java, JavaScript, Python, C/C++, HTML, CSS, XML, .NET (basic)
+
+### Frameworks & Libraries
+
+NestJS, Angular, React, Next.js, Bootstrap, Android (Java + XML), Flutter (learning), Dart (learning)
+
+### Databases
+
+MongoDB, Supabase, Oracle (exposure)
+
+### Cloud & DevOps
+
+Google Cloud Platform (foundational); strong interest in DevOps, CI/CD, and cloud‑native systems
+
+### APIs & Integrations
+
+Meta APIs (WhatsApp/Business), Langflow, Gemini AI, Cloudinary
+
+### Architecture (Practical Exposure)
+
+API‑driven systems, modular monoliths, B2B workflow automation, event‑triggered flows, integration‑heavy backends
+
+### Strengths
+
+Backend system building, problem solving, early system design thinking, technical communication, ownership mindset
+
+---
+
+## Experience
+
+### Akashic Technologies — Full‑Stack Developer Intern
+
+**Duration:** 3 months (ongoing / extendable)
+
+**Overview**
+Contributing to a B2B product focused on automation and business messaging workflows.
+
+**Responsibilities & Impact**
+
+* Built backend services using **NestJS** to support scalable, API‑driven workflows
+* Developed frontend features with **Angular** for internal and client‑facing dashboards
+* Integrated **Meta APIs** to enable automated business messaging and trigger‑based flows
+* Worked on performance, automation logic, and production‑grade features impacting revenue workflows
+* Collaborated in a product environment with real business constraints and delivery timelines
+
+**Tech Stack:** NestJS, Angular, MongoDB, Meta APIs
+
+---
+
+### V2V EdTech / MovieFlex — Full‑Stack Developer Intern
+
+**Duration:** 3 months
+
+**Overview**
+Learning‑intensive internship focused on full‑stack foundations and real‑world delivery.
+
+**Responsibilities & Impact**
+
+* Built complete web applications using **PHP, HTML, CSS, JavaScript, Bootstrap**
+* Implemented frontend UI flows and backend logic for content‑driven platforms
+* Gained exposure to production issues, iterative development, and user‑driven requirements
+
+**Tech Stack:** PHP, HTML, CSS, JavaScript, Bootstrap
+
+---
+
+## Projects (Portfolio‑Ready)
+
+### Influence IQ
+
+**Problem**
+Brands and creators struggle to quickly evaluate social influence and engagement signals across platforms.
+
+**Solution**
+Built a web platform that surfaces influence‑related insights through a clean UI and API‑driven architecture, enabling faster evaluation and decision‑making for marketing use cases.
+
+**What I Built**
+
+* Full‑stack application with structured frontend and backend logic
+* API‑centric data handling and UI rendering
+* Performance‑focused frontend experience
+
+**Why It Matters**
+Demonstrates product thinking, data‑driven UI design, and end‑to‑end system ownership.
+
+**Tech:** Next.js / React, APIs, Web Performance
+
+---
+
+### SymptomSage AI
+
+**Problem**
+Users need quick, understandable guidance when experiencing symptoms, without navigating complex medical content.
+
+**Solution**
+Developed an AI‑powered symptom guidance tool that uses intelligent prompts and AI responses to provide structured, user‑friendly insights.
+
+**What I Built**
+
+* Integrated AI models to generate symptom‑based suggestions
+* Designed frontend UX for conversational AI interaction
+* Connected AI logic with user input flows
+
+**Why It Matters**
+Shows practical AI integration, prompt handling, and responsible UX design for AI‑driven systems.
+
+**Tech:** AI (Gemini), Langflow, Frontend Frameworks
+
+---
+
+### Invoisify
+
+**Problem**
+Manual invoice creation is time‑consuming and error‑prone for small teams and freelancers.
+
+**Solution**
+Built a lightweight invoicing platform to automate invoice generation with structured data input and clean outputs.
+
+**What I Built**
+
+* Frontend‑driven invoice creation flow
+* Structured data handling for business documents
+* Focus on usability and speed
+
+**Why It Matters**
+Demonstrates business problem solving, automation mindset, and product usability.
+
+**Tech:** Full‑Stack Web Technologies
+
+---
+
+## Education
+
+**Bachelor of Engineering (BE)** — 2027
+Terna Engineering College, Nerul
+
+**Diploma** — 2024
+Government Polytechnic, Thane
+
+---
+
+## Leadership & Activities
+
+* Led and mentored peers during **Avalon Technova** technical events
+* Frequently guide peers on backend concepts, system thinking, and tech stacks
+
+---
+
+## Writing & Content
+
+* Technical blogs published on **Hashnode** and **Medium**, focusing on development concepts, learning journeys, and system thinking
+
+---
+
+## Positioning for AI Agents (Structured Summary)
+
+> Backend‑first Full‑Stack Engineer specializing in API‑driven systems, B2B automation, and practical AI integrations. Experienced with NestJS, Angular/React, Meta APIs, and Gemini AI. Strong system mindset, product orientation, and clear technical communication.
+
+---
+
+## Preferred Roles
+
+Backend Engineer • Full‑Stack Developer • Product Engineer (Backend‑Heavy)
+
+## Work Preference
+
+Remote / Hybrid • Open to Relocation
