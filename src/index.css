@@ -26,32 +26,6 @@
 }
 
 @layer components {
-  .glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--color-border);
-  }
-
-  .glow-yellow {
-    box-shadow: 0 0 30px rgba(250, 204, 21, 0.15);
-  }
-
-  .bento-card {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--color-border);
-    border-radius: 2rem;
-    padding: 2rem;
-    transition: all 0.5s cubic-bezier(0.2, 0.65, 0.3, 0.9);
-  }
-
-  .bento-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(250, 204, 21, 0.2);
-  }
-
   .grain-overlay {
     position: fixed;
     inset: 0;
@@ -59,19 +33,6 @@
     z-index: 9999;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJibHVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+');
     opacity: 0.4;
-  }
-
-  .spotlight {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(250, 204, 21, 0.03),
-        transparent 80%);
   }
 }
 
@@ -93,64 +54,6 @@
   background: #404040;
 }
 
-/* Animations */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-33.33%);
-  }
-}
-
-@keyframes marquee-reverse {
-  0% {
-    transform: translateX(-33.33%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee-reverse {
-  animation: marquee-reverse 30s linear infinite;
-}
-
-.shimmer-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.03),
-      transparent);
-  animation: shimmer 3s infinite;
-}
-
 /* Elite Typography */
 h1,
 h2,
@@ -158,20 +61,4 @@ h3 {
   text-wrap: balance;
   letter-spacing: -0.04em;
   line-height: 0.95;
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
 }

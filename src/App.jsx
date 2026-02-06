@@ -54,29 +54,38 @@ const leetcodeStats = {
   acceptance: "66.6%"
 };
 
+const GITHUB_THEME = {
+  light: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+  dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+};
+
 const App = () => {
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
+
+    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      touchMultiplier: 2,
     });
 
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
-  const githubTheme = {
-    light: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-    dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-  };
 
   return (
     <div className="bg-background text-white selection:bg-primary selection:text-black min-h-screen font-sans antialiased">
@@ -174,7 +183,7 @@ const App = () => {
                 {mounted && (
                   <GitHubCalendar
                     username="mohit45v"
-                    theme={githubTheme}
+                    theme={GITHUB_THEME}
                     fontSize={12}
                     blockSize={10}
                     blockMargin={4}
