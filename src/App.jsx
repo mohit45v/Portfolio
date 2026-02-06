@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, ExternalLink, MapPin, Sparkles } from 'lucide-react';
+import { Mail, Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy } from 'lucide-react';
+import { GitHubCalendar } from 'react-github-calendar';
 
 const projects = [
   {
@@ -42,8 +43,21 @@ const experiences = [
   }
 ];
 
+const leetcodeStats = {
+  solved: 90,
+  breakdown: {
+    easy: 53,
+    medium: 28,
+    hard: 9
+  },
+  ranking: "1.5M",
+  acceptance: "66.6%"
+};
+
 const App = () => {
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -59,16 +73,22 @@ const App = () => {
     return () => lenis.destroy();
   }, []);
 
+  const githubTheme = {
+    light: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+    dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+  };
+
   return (
     <div className="bg-background text-white selection:bg-primary selection:text-black min-h-screen font-sans antialiased">
       <div className="grain-overlay opacity-20 pointer-events-none" />
-      
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 backdrop-blur-md bg-background/50">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-bold tracking-tight text-lg">MOHIT.</span>
+          <span className="font-bold tracking-tight text-lg underline decoration-primary decoration-2 underline-offset-4">MOHIT.</span>
           <div className="flex gap-6 text-sm text-text-muted">
             <a href="#work" className="hover:text-white transition-colors">Work</a>
+            <a href="#activity" className="hover:text-white transition-colors">Activity</a>
             <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
@@ -107,17 +127,19 @@ const App = () => {
 
         {/* Selected Work */}
         <section id="work" className="mb-32">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12">Selected Projects</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
+            <span className="w-8 h-px bg-white/10"></span> Selected Projects
+          </h2>
           <div className="grid gap-12">
             {projects.map((project, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="group relative grid md:grid-cols-[1fr,2fr] gap-8 items-start"
               >
-                <div className="text-text-muted text-sm tabular-nums">0{i+1} —</div>
+                <div className="text-text-muted text-sm tabular-nums">0{i + 1} —</div>
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{project.title}</h3>
@@ -135,9 +157,73 @@ const App = () => {
           </div>
         </section>
 
+        {/* Activity Section */}
+        <section id="activity" className="mb-32">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
+            <span className="w-8 h-px bg-white/10"></span> Engineering Activity
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* GitHub Contributions */}
+            <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
+              <div className="flex items-center gap-3 mb-6">
+                <Activity className="text-primary w-5 h-5" />
+                <h3 className="font-bold">GitHub contributions</h3>
+              </div>
+              <div className="flex justify-center">
+                {mounted && (
+                  <GitHubCalendar
+                    username="mohit45v"
+                    theme={githubTheme}
+                    fontSize={12}
+                    blockSize={10}
+                    blockMargin={4}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* LeetCode Stats */}
+            <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
+              <div className="flex items-center gap-3 mb-6">
+                <Trophy className="text-primary w-5 h-5" />
+                <h3 className="font-bold">LeetCode Mastery</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-white/5 col-span-2">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-3xl font-bold">{leetcodeStats.solved}</span>
+                    <span className="text-[10px] text-text-muted uppercase tracking-wider mb-1">Solved Total</span>
+                  </div>
+                  <div className="flex gap-1 h-1.5 w-full rounded-full overflow-hidden bg-white/5">
+                    <div className="bg-emerald-500" style={{ width: `${(leetcodeStats.breakdown.easy / leetcodeStats.solved) * 100}%` }} />
+                    <div className="bg-yellow-500" style={{ width: `${(leetcodeStats.breakdown.medium / leetcodeStats.solved) * 100}%` }} />
+                    <div className="bg-red-500" style={{ width: `${(leetcodeStats.breakdown.hard / leetcodeStats.solved) * 100}%` }} />
+                  </div>
+                  <div className="flex justify-between mt-2 text-[8px] uppercase tracking-tighter font-bold">
+                    <span className="text-emerald-500">Easy {leetcodeStats.breakdown.easy}</span>
+                    <span className="text-yellow-500">Med {leetcodeStats.breakdown.medium}</span>
+                    <span className="text-red-500">Hard {leetcodeStats.breakdown.hard}</span>
+                  </div>
+                </div>
+                <div className="p-4 rounded-xl bg-white/5">
+                  <span className="block text-2xl font-bold">#{leetcodeStats.ranking}</span>
+                  <span className="text-[10px] text-text-muted uppercase tracking-wider">Rank</span>
+                </div>
+                <div className="p-4 rounded-xl bg-white/5">
+                  <span className="block text-2xl font-bold">{leetcodeStats.acceptance}</span>
+                  <span className="text-[10px] text-text-muted uppercase tracking-wider">Acc.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Experience */}
         <section className="mb-32">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12">Experience</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
+            <span className="w-8 h-px bg-white/10"></span> Experience
+          </h2>
           <div className="space-y-12">
             {experiences.map((exp, i) => (
               <div key={i} className="border-l border-white/10 pl-8 relative">
@@ -159,8 +245,8 @@ const App = () => {
             <div>
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-8">About</h2>
               <p className="text-text-muted leading-relaxed">
-                Backend‑first Full‑Stack Engineer with a bias toward scalable architecture and clean abstractions. 
-                Comfortable owning features end‑to‑end—from system design to production delivery. 
+                Backend‑first Full‑Stack Engineer with a bias toward scalable architecture and clean abstractions.
+                Comfortable owning features end‑to‑end—from system design to production delivery.
                 Based in Thane, India.
               </p>
             </div>
