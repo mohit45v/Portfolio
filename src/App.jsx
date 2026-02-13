@@ -173,10 +173,9 @@ const App = () => {
                     <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{project.title}</h3>
                     <ExternalLink size={18} className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <p className="text-text-muted mb-3 leading-relaxed">{project.description}</p>
-                  <p className="text-sm mb-4 text-white/80 border-l-2 border-primary pl-3">{project.impact}</p>
+                  <p className="text-text-muted mb-4 leading-relaxed">{project.description}</p>
                   <div className="flex gap-2 mb-4 flex-wrap">
-                    {project.tech.map((t) => (
+                    {project.tech.map(t => (
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-text-muted">{t}</span>
                     ))}
                   </div>
