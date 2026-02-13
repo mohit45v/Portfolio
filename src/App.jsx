@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy } from 'lucide-react';
+import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 
 const projects = [
   {
     title: "Influence IQ",
     description: "AI-driven social influence analytics platform surfacing engagement signals and insights.",
+    impact: "Reduced manual campaign analysis effort by automating influencer signal checks.",
     tech: ["Next.js", "React", "APIs"],
     repoLink: "https://github.com/mohit45v/influence-iq",
     liveLink: "https://influence-iq.vercel.app",
@@ -16,6 +17,7 @@ const projects = [
   {
     title: "SymptomSage AI",
     description: "AI guidance tool using intelligent prompts for understood symptom-based insights.",
+    impact: "Improved response relevance with prompt pipelines tuned for structured symptom inputs.",
     tech: ["Gemini", "Langflow", "React"],
     repoLink: "https://github.com/mohit45v/symptomsage-ai",
     liveLink: "https://symptomsage-ai.vercel.app",
@@ -23,10 +25,29 @@ const projects = [
   {
     title: "Invoisify",
     description: "Automated invoicing platform for small teams and freelancers with structured data.",
+    impact: "Removed repetitive billing workflow using template-driven invoice generation.",
     tech: ["MERN", "Automation", "React"],
     repoLink: "https://github.com/mohit45v/invoisify",
     liveLink: "https://invoisify.vercel.app",
   }
+];
+
+const differentiators = [
+  {
+    icon: Code2,
+    title: 'Backend-first thinking',
+    detail: 'I design APIs and data models before UI, so products stay stable as they scale.',
+  },
+  {
+    icon: Rocket,
+    title: 'Execution speed',
+    detail: 'From idea to shipped MVP fast, with production-ready structure and deployment in mind.',
+  },
+  {
+    icon: Brain,
+    title: 'AI + product blend',
+    detail: 'I combine LLM workflows with real business logic, not just demo-level chat wrappers.',
+  },
 ];
 
 const experiences = [
@@ -68,7 +89,6 @@ const App = () => {
   useEffect(() => {
     setMounted(true);
 
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -89,26 +109,23 @@ const App = () => {
     };
   }, []);
 
-
   return (
     <div className="bg-background text-white selection:bg-primary selection:text-black min-h-screen font-sans antialiased">
       <div className="grain-overlay opacity-20 pointer-events-none" />
 
-      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 backdrop-blur-md bg-background/50">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-bold tracking-tight text-lg underline decoration-primary decoration-2 underline-offset-4">MOHIT.</span>
           <div className="flex gap-6 text-sm text-text-muted">
             <a href="#work" className="hover:text-white transition-colors">Work</a>
             <a href="#activity" className="hover:text-white transition-colors">Activity</a>
-            <a href="#about" className="hover:text-white transition-colors">About</a>
+            <a href="#difference" className="hover:text-white transition-colors">Difference</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </nav>
 
       <main className="max-w-4xl mx-auto px-6 pt-32 pb-20">
-        {/* Hero */}
         <section className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -123,7 +140,7 @@ const App = () => {
               <span className="text-primary italic">Full‑Stack</span> Engineer
             </h1>
             <p className="text-xl text-text-muted max-w-2xl leading-relaxed mb-8">
-              Building B2B automation platforms, API‑driven systems, and AI‑powered products with NestJS and React.
+              I build automation products that move from API architecture to production UI with clear business outcomes.
             </p>
             <div className="flex gap-4">
               <a href="mailto:mohit.dhangar88@gmail.com" className="bg-primary text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
@@ -137,7 +154,6 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Selected Work */}
         <section id="work" className="mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Selected Projects
@@ -187,14 +203,12 @@ const App = () => {
           </div>
         </section>
 
-        {/* Activity Section */}
         <section id="activity" className="mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Engineering Activity
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* GitHub Contributions */}
             <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-3 mb-6">
                 <Activity className="text-primary w-5 h-5" />
@@ -213,7 +227,6 @@ const App = () => {
               </div>
             </div>
 
-            {/* LeetCode Stats */}
             <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-3 mb-6">
                 <Trophy className="text-primary w-5 h-5" />
@@ -249,7 +262,21 @@ const App = () => {
           </div>
         </section>
 
-        {/* Experience */}
+        <section id="difference" className="mb-32">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
+            <span className="w-8 h-px bg-white/10"></span> What Makes Me Different
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {differentiators.map(({ icon: Icon, title, detail }) => (
+              <div key={title} className="p-5 rounded-2xl bg-white/5 border border-white/10">
+                <Icon className="w-4 h-4 text-primary mb-3" />
+                <h3 className="font-semibold mb-2">{title}</h3>
+                <p className="text-sm text-text-muted leading-relaxed">{detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Experience
@@ -269,7 +296,6 @@ const App = () => {
           </div>
         </section>
 
-        {/* About / Skills */}
         <section id="about" className="mb-32">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
@@ -279,11 +305,14 @@ const App = () => {
                 Comfortable owning features end‑to‑end—from system design to production delivery.
                 Based in Thane, India.
               </p>
+              <div className="flex items-center gap-2 text-sm text-text-muted mt-5">
+                <MapPin size={14} className="text-primary" /> Thane, Maharashtra · India
+              </div>
             </div>
             <div>
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-8">Tech Stack</h2>
               <div className="flex flex-wrap gap-2">
-                {["NestJS", "Node.js", "React", "Next.js", "Angular", "MongoDB", "Supabase", "Meta APIs", "Gemini AI", "Java", "Python"].map(skill => (
+                {["NestJS", "Node.js", "React", "Next.js", "Angular", "MongoDB", "Supabase", "Meta APIs", "Gemini AI", "Java", "Python"].map((skill) => (
                   <span key={skill} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm">{skill}</span>
                 ))}
               </div>
@@ -291,7 +320,6 @@ const App = () => {
           </div>
         </section>
 
-        {/* Contact */}
         <section id="contact" className="py-20 border-t border-white/5">
           <div className="text-center">
             <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to build?</h2>
