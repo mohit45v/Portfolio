@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain, Gauge, Boxes, ShieldCheck } from 'lucide-react';
+import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 
 const projects = [
@@ -30,27 +30,6 @@ const projects = [
     repoLink: "https://github.com/mohit45v/invoisify",
     liveLink: "https://invoisify.vercel.app",
   }
-];
-
-const proofOfWork = [
-  {
-    icon: Gauge,
-    title: 'Performance-led delivery',
-    metric: 'API response time improved by 35% in internal testing',
-    detail: 'Used query tuning, response shaping, and backend profiling to reduce latency on key flows.',
-  },
-  {
-    icon: Boxes,
-    title: 'Systems built for scale',
-    metric: 'Modular backend architecture used across multiple product features',
-    detail: 'Designed reusable service layers and clean abstractions to speed up new feature shipping.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Reliable production mindset',
-    metric: 'Focused on robust APIs, validation, and failure-safe behavior',
-    detail: 'Implemented defensive checks and structured error handling for predictable production behavior.',
-  },
 ];
 
 const differentiators = [
@@ -140,7 +119,6 @@ const App = () => {
           <div className="flex gap-6 text-sm text-text-muted">
             <a href="#work" className="hover:text-white transition-colors">Work</a>
             <a href="#activity" className="hover:text-white transition-colors">Activity</a>
-            <a href="#proof" className="hover:text-white transition-colors">Proof</a>
             <a href="#difference" className="hover:text-white transition-colors">Difference</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
@@ -195,10 +173,9 @@ const App = () => {
                     <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{project.title}</h3>
                     <ExternalLink size={18} className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <p className="text-text-muted mb-3 leading-relaxed">{project.description}</p>
-                  <p className="text-sm mb-4 text-white/80 border-l-2 border-primary pl-3">{project.impact}</p>
+                  <p className="text-text-muted mb-4 leading-relaxed">{project.description}</p>
                   <div className="flex gap-2 mb-4 flex-wrap">
-                    {project.tech.map((t) => (
+                    {project.tech.map(t => (
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-text-muted">{t}</span>
                     ))}
                   </div>
@@ -282,22 +259,6 @@ const App = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section id="proof" className="mb-32">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
-            <span className="w-8 h-px bg-white/10"></span> Proof of Work
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {proofOfWork.map(({ icon: Icon, title, metric, detail }) => (
-              <div key={title} className="p-5 rounded-2xl bg-white/5 border border-white/10">
-                <Icon className="w-4 h-4 text-primary mb-3" />
-                <h3 className="font-semibold mb-2">{title}</h3>
-                <p className="text-primary text-xs uppercase tracking-wider mb-2">{metric}</p>
-                <p className="text-sm text-text-muted leading-relaxed">{detail}</p>
-              </div>
-            ))}
           </div>
         </section>
 
