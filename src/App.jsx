@@ -10,19 +10,22 @@ const projects = [
     title: "Influence IQ",
     description: "AI-driven social influence analytics platform surfacing engagement signals and insights.",
     tech: ["Next.js", "React", "APIs"],
-    link: "https://github.com/mohit45v",
+    repoLink: "https://github.com/mohit45v/influence-iq",
+    liveLink: "https://influence-iq.vercel.app",
   },
   {
     title: "SymptomSage AI",
     description: "AI guidance tool using intelligent prompts for understood symptom-based insights.",
     tech: ["Gemini", "Langflow", "React"],
-    link: "https://github.com/mohit45v",
+    repoLink: "https://github.com/mohit45v/symptomsage-ai",
+    liveLink: "https://symptomsage-ai.vercel.app",
   },
   {
     title: "Invoisify",
     description: "Automated invoicing platform for small teams and freelancers with structured data.",
     tech: ["MERN", "Automation", "React"],
-    link: "https://github.com/mohit45v",
+    repoLink: "https://github.com/mohit45v/invoisify",
+    liveLink: "https://invoisify.vercel.app",
   }
 ];
 
@@ -155,10 +158,28 @@ const App = () => {
                     <ExternalLink size={18} className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <p className="text-text-muted mb-4 leading-relaxed">{project.description}</p>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mb-4 flex-wrap">
                     {project.tech.map(t => (
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-text-muted">{t}</span>
                     ))}
+                  </div>
+                  <div className="flex items-center gap-4 text-sm">
+                    <a
+                      href={project.repoLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-primary hover:underline underline-offset-4"
+                    >
+                      <Github size={14} /> Repo
+                    </a>
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-text-muted hover:text-white transition-colors"
+                    >
+                      <ExternalLink size={14} /> Live Demo
+                    </a>
                   </div>
                 </div>
               </motion.div>
