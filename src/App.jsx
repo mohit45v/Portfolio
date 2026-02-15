@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain } from 'lucide-react';
+import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain, Menu, X } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 
 const projects = [
@@ -85,6 +85,7 @@ const GITHUB_THEME = {
 
 const App = () => {
   const [mounted, setMounted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -116,17 +117,41 @@ const App = () => {
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 backdrop-blur-md bg-background/50">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-bold tracking-tight text-lg underline decoration-primary decoration-2 underline-offset-4">MOHIT.</span>
-          <div className="flex gap-6 text-sm text-text-muted">
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex gap-6 text-sm text-text-muted">
             <a href="#work" className="hover:text-white transition-colors">Work</a>
             <a href="#activity" className="hover:text-white transition-colors">Activity</a>
             <a href="#difference" className="hover:text-white transition-colors">Difference</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Nav Overlay */}
+        <motion.div
+          initial={false}
+          animate={{ height: isMenuOpen ? 'auto' : 0, opacity: isMenuOpen ? 1 : 0 }}
+          className="md:hidden overflow-hidden bg-background/95 border-b border-white/5"
+        >
+          <div className="flex flex-col gap-4 px-6 py-8 text-lg font-medium">
+            <a href="#work" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Work</a>
+            <a href="#activity" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Activity</a>
+            <a href="#difference" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Difference</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Contact</a>
+          </div>
+        </motion.div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-6 pt-32 pb-20">
-        <section className="mb-32">
+      <main className="max-w-4xl mx-auto px-6 pt-24 sm:pt-32 pb-20">
+        <section className="mb-20 sm:mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -135,26 +160,26 @@ const App = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs mb-6">
               <Sparkles className="w-3.5 h-3.5" /> Open to Remote & Relocation
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter">
-              Backend‑First <br />
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-[1.1]">
+              Backend‑First <br className="hidden sm:block" />
               <span className="text-primary italic">Full‑Stack</span> Engineer
             </h1>
-            <p className="text-xl text-text-muted max-w-2xl leading-relaxed mb-8">
+            <p className="text-lg sm:text-xl text-text-muted max-w-2xl leading-relaxed mb-8">
               I build automation products that move from API architecture to production UI with clear business outcomes.
             </p>
-            <div className="flex gap-4">
-              <a href="mailto:mohit.dhangar88@gmail.com" className="bg-primary text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-4 items-start sm:items-center">
+              <a href="mailto:mohit.dhangar88@gmail.com" className="w-full sm:w-auto text-center bg-primary text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
                 Get in touch
               </a>
-              <div className="flex items-center gap-4 text-text-muted ml-4">
-                <a href="https://github.com/mohit45v" target="_blank" rel="noreferrer" className="hover:text-white"><Github size={20} /></a>
-                <a href="https://linkedin.com/in/mohit45v" target="_blank" rel="noreferrer" className="hover:text-white"><Linkedin size={20} /></a>
+              <div className="flex items-center gap-6 text-text-muted">
+                <a href="https://github.com/mohit45v" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github size={22} /></a>
+                <a href="https://linkedin.com/in/mohit45v" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin size={22} /></a>
               </div>
             </div>
           </motion.div>
         </section>
 
-        <section id="work" className="mb-32">
+        <section id="work" className="mb-20 sm:mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Selected Projects
           </h2>
@@ -203,7 +228,7 @@ const App = () => {
           </div>
         </section>
 
-        <section id="activity" className="mb-32">
+        <section id="activity" className="mb-20 sm:mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Engineering Activity
           </h2>
@@ -214,15 +239,17 @@ const App = () => {
                 <Activity className="text-primary w-5 h-5" />
                 <h3 className="font-bold">GitHub contributions</h3>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center overflow-hidden">
                 {mounted && (
-                  <GitHubCalendar
-                    username="mohit45v"
-                    theme={GITHUB_THEME}
-                    fontSize={12}
-                    blockSize={10}
-                    blockMargin={4}
-                  />
+                  <div className="w-full max-w-full overflow-x-auto pb-4 scrollbar-hide">
+                    <GitHubCalendar
+                      username="mohit45v"
+                      theme={GITHUB_THEME}
+                      fontSize={12}
+                      blockSize={window.innerWidth < 640 ? 8 : 10}
+                      blockMargin={4}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -262,7 +289,7 @@ const App = () => {
           </div>
         </section>
 
-        <section id="difference" className="mb-32">
+        <section id="difference" className="mb-20 sm:mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> What Makes Me Different
           </h2>
@@ -277,7 +304,7 @@ const App = () => {
           </div>
         </section>
 
-        <section className="mb-32">
+        <section className="mb-20 sm:mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-12 flex items-center gap-2">
             <span className="w-8 h-px bg-white/10"></span> Experience
           </h2>
@@ -296,7 +323,7 @@ const App = () => {
           </div>
         </section>
 
-        <section id="about" className="mb-32">
+        <section id="about" className="mb-20 sm:mb-32">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-8">About</h2>
