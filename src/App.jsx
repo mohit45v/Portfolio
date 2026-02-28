@@ -29,6 +29,14 @@ const projects = [
     tech: ["MERN", "Automation", "React"],
     repoLink: "https://github.com/mohit45v/invoisify",
     liveLink: "https://invoisify.vercel.app",
+  },
+  {
+    title: "Avalon Techfest",
+    description: "Technical event platform and management for Avalon Technova.",
+    impact: "Led and mentored peers during technical events.",
+    tech: ["Web Development", "Leadership", "Mentorship"],
+    repoLink: "https://github.com/mohit45v",
+    liveLink: "https://www.avalontechfest.in/",
   }
 ];
 
