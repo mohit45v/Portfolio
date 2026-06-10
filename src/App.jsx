@@ -6,6 +6,7 @@ import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Code2, Rock
 import { GitHubCalendar } from 'react-github-calendar';
 import { ArchitectureDiagram } from './components/ArchitectureDiagram';
 import { PageViews } from './components/PageViews';
+import { VirtualPet } from './components/VirtualPet';
 
 const projects = [
   {
@@ -126,41 +127,49 @@ const App = () => {
     <div className="bg-background text-white selection:bg-primary selection:text-black min-h-screen font-sans antialiased">
       <div className="grain-overlay opacity-20 pointer-events-none" />
 
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 backdrop-blur-md bg-background/50">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-bold tracking-tight text-lg underline decoration-primary decoration-2 underline-offset-4">MOHIT.</span>
+      {/* Floating Desktop Nav */}
+      <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+        <nav className="flex items-center gap-2 px-4 py-3 rounded-full bg-[#111]/80 backdrop-blur-xl border border-white/10 shadow-2xl">
+          <span className="font-bold tracking-tight text-sm mr-4 text-white">MOHIT.</span>
+          <div className="w-px h-4 bg-white/20 mr-2"></div>
+          <a href="#work" className="px-3 py-1.5 rounded-full text-sm font-medium text-text-muted hover:text-white hover:bg-white/10 transition-all">Work</a>
+          <a href="#activity" className="px-3 py-1.5 rounded-full text-sm font-medium text-text-muted hover:text-white hover:bg-white/10 transition-all">Activity</a>
+          <a href="#difference" className="px-3 py-1.5 rounded-full text-sm font-medium text-text-muted hover:text-white hover:bg-white/10 transition-all">Difference</a>
+          <a href="#contact" className="px-3 py-1.5 rounded-full text-sm font-medium text-primary hover:bg-primary/10 transition-all">Contact</a>
+        </nav>
+      </div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex gap-6 text-sm text-text-muted">
-            <a href="#work" className="hover:text-white transition-colors">Work</a>
-            <a href="#activity" className="hover:text-white transition-colors">Activity</a>
-            <a href="#difference" className="hover:text-white transition-colors">Difference</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      {/* Mobile Top Bar */}
+      <div className="md:hidden fixed top-0 w-full z-40 border-b border-white/5 backdrop-blur-md bg-background/50">
+        <div className="px-6 h-16 flex items-center justify-between">
+          <span className="font-bold tracking-tight text-lg">MOHIT.</span>
+          <button className="text-white p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center" onClick={() => setIsMenuOpen(true)}>
+            <Menu size={24} />
           </button>
         </div>
+      </div>
 
-        {/* Mobile Nav Overlay */}
-        <motion.div
-          initial={false}
-          animate={{ height: isMenuOpen ? 'auto' : 0, opacity: isMenuOpen ? 1 : 0 }}
-          className="md:hidden overflow-hidden bg-background/95 border-b border-white/5"
-        >
-          <div className="flex flex-col gap-4 px-6 py-8 text-lg font-medium">
-            <a href="#work" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Work</a>
-            <a href="#activity" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Activity</a>
-            <a href="#difference" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Difference</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors">Contact</a>
-          </div>
-        </motion.div>
-      </nav>
+      {/* Mobile Full-Screen Overlay Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="md:hidden fixed inset-0 z-[100] bg-background/95 backdrop-blur-xl flex flex-col justify-center items-center"
+          >
+            <button className="absolute top-4 right-4 p-4 text-white min-h-[44px] min-w-[44px] flex items-center justify-center" onClick={() => setIsMenuOpen(false)}>
+              <X size={32} />
+            </button>
+            <div className="flex flex-col gap-8 text-3xl font-bold text-center">
+              <a href="#work" onClick={() => setIsMenuOpen(false)} className="hover:text-white transition-colors">Work</a>
+              <a href="#activity" onClick={() => setIsMenuOpen(false)} className="hover:text-white transition-colors">Activity</a>
+              <a href="#difference" onClick={() => setIsMenuOpen(false)} className="hover:text-white transition-colors">Difference</a>
+              <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-primary">Contact</a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="max-w-4xl mx-auto px-6 pt-24 sm:pt-32 pb-20">
         <section className="mb-20 sm:mb-32">
@@ -169,9 +178,9 @@ const App = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs mb-6">
+            {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs mb-6">
               <Sparkles className="w-3.5 h-3.5" /> Open to Remote & Relocation
-            </div>
+            </div> */}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tighter leading-[1.1]">
               Backend‑First <br className="hidden sm:block" />
               <span className="text-primary italic">Full‑Stack</span> Engineer
@@ -202,8 +211,9 @@ const App = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="group relative grid md:grid-cols-[1fr,2fr] gap-8 items-start"
+                className="group relative grid md:grid-cols-[1fr,2fr] gap-8 items-start p-6 -mx-6 rounded-3xl hover:bg-white/[0.02] transition-colors"
               >
+                <div className="absolute inset-0 bg-primary/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none -z-10" />
                 <div className="text-text-muted text-sm tabular-nums">0{i + 1} —</div>
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -369,6 +379,8 @@ const App = () => {
           <p className="flex items-center gap-2 italic">Crafted with simplicity <span className="text-primary">●</span></p>
         </div>
       </footer>
+      
+      <VirtualPet />
     </div>
   );
 };

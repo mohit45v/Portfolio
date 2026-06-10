@@ -8,6 +8,7 @@
   --color-text-muted: #737373;
 
   --font-sans: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
 }
 
 @layer base {
@@ -65,7 +66,11 @@
 /* Elite Typography */
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
   text-wrap: balance;
   letter-spacing: -0.04em;
   line-height: 0.95;
