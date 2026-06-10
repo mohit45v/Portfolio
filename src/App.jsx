@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
-import { motion } from 'framer-motion';
-import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Trophy, Code2, Rocket, Brain, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, ExternalLink, MapPin, Sparkles, Activity, Code2, Rocket, Brain, Menu, X, Network, Eye } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
+import { ArchitectureDiagram } from './components/ArchitectureDiagram';
+import { PageViews } from './components/PageViews';
 
 const projects = [
   {
@@ -13,6 +15,11 @@ const projects = [
     tech: ["Next.js", "React", "APIs"],
     repoLink: "https://github.com/mohit45v/influence-iq",
     liveLink: "https://influence-iq.vercel.app",
+    architecture: [
+      { id: 'client', label: 'Next.js', sublabel: 'Frontend', icon: 'LayoutTemplate' },
+      { id: 'api', label: 'NestJS', sublabel: 'Backend API', icon: 'ServerCog' },
+      { id: 'db', label: 'MongoDB', sublabel: 'Database', icon: 'Database' }
+    ]
   },
   {
     title: "SymptomSage AI",
@@ -21,6 +28,11 @@ const projects = [
     tech: ["Gemini", "Langflow", "React"],
     repoLink: "https://github.com/mohit45v/symptomsage-ai",
     liveLink: "https://symptomsage-ai.vercel.app",
+    architecture: [
+      { id: 'ui', label: 'React UI', sublabel: 'Client', icon: 'AppWindow' },
+      { id: 'pipeline', label: 'Langflow', sublabel: 'Orchestrator', icon: 'Workflow' },
+      { id: 'llm', label: 'Gemini AI', sublabel: 'Model', icon: 'BrainCircuit' }
+    ]
   },
   {
     title: "Invoisify",
@@ -75,16 +87,7 @@ const experiences = [
   }
 ];
 
-const leetcodeStats = {
-  solved: 90,
-  breakdown: {
-    easy: 53,
-    medium: 28,
-    hard: 9
-  },
-  ranking: "1.5M",
-  acceptance: "66.6%"
-};
+
 
 const GITHUB_THEME = {
   light: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
@@ -94,6 +97,7 @@ const GITHUB_THEME = {
 const App = () => {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDiagram, setActiveDiagram] = useState(null);
 
   useEffect(() => {
     setMounted(true);
@@ -212,7 +216,7 @@ const App = () => {
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-text-muted">{t}</span>
                     ))}
                   </div>
-                  <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-4 text-sm mb-4">
                     <a
                       href={project.repoLink}
                       target="_blank"
@@ -229,7 +233,28 @@ const App = () => {
                     >
                       <ExternalLink size={14} /> Live Demo
                     </a>
+                    {project.architecture && (
+                      <button 
+                        onClick={() => setActiveDiagram(activeDiagram === i ? null : i)}
+                        className="inline-flex items-center gap-2 text-text-muted hover:text-primary transition-colors ml-auto"
+                      >
+                        <Network size={14} /> {activeDiagram === i ? 'Hide Architecture' : 'View Architecture'}
+                      </button>
+                    )}
                   </div>
+                  
+                  <AnimatePresence>
+                    {activeDiagram === i && project.architecture && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <ArchitectureDiagram nodes={project.architecture} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             ))}
@@ -241,7 +266,7 @@ const App = () => {
             <span className="w-8 h-px bg-white/10"></span> Engineering Activity
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid gap-8 max-w-3xl mx-auto">
             <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-3 mb-6">
                 <Activity className="text-primary w-5 h-5" />
@@ -259,39 +284,6 @@ const App = () => {
                     />
                   </div>
                 )}
-              </div>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
-              <div className="flex items-center gap-3 mb-6">
-                <Trophy className="text-primary w-5 h-5" />
-                <h3 className="font-bold">LeetCode Mastery</h3>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-white/5 col-span-2">
-                  <div className="flex justify-between items-end mb-2">
-                    <span className="text-3xl font-bold">{leetcodeStats.solved}</span>
-                    <span className="text-[10px] text-text-muted uppercase tracking-wider mb-1">Solved Total</span>
-                  </div>
-                  <div className="flex gap-1 h-1.5 w-full rounded-full overflow-hidden bg-white/5">
-                    <div className="bg-emerald-500" style={{ width: `${(leetcodeStats.breakdown.easy / leetcodeStats.solved) * 100}%` }} />
-                    <div className="bg-yellow-500" style={{ width: `${(leetcodeStats.breakdown.medium / leetcodeStats.solved) * 100}%` }} />
-                    <div className="bg-red-500" style={{ width: `${(leetcodeStats.breakdown.hard / leetcodeStats.solved) * 100}%` }} />
-                  </div>
-                  <div className="flex justify-between mt-2 text-[8px] uppercase tracking-tighter font-bold">
-                    <span className="text-emerald-500">Easy {leetcodeStats.breakdown.easy}</span>
-                    <span className="text-yellow-500">Med {leetcodeStats.breakdown.medium}</span>
-                    <span className="text-red-500">Hard {leetcodeStats.breakdown.hard}</span>
-                  </div>
-                </div>
-                <div className="p-4 rounded-xl bg-white/5">
-                  <span className="block text-2xl font-bold">#{leetcodeStats.ranking}</span>
-                  <span className="text-[10px] text-text-muted uppercase tracking-wider">Rank</span>
-                </div>
-                <div className="p-4 rounded-xl bg-white/5">
-                  <span className="block text-2xl font-bold">{leetcodeStats.acceptance}</span>
-                  <span className="text-[10px] text-text-muted uppercase tracking-wider">Acc.</span>
-                </div>
               </div>
             </div>
           </div>
@@ -370,9 +362,12 @@ const App = () => {
         </section>
       </main>
 
-      <footer className="max-w-4xl mx-auto px-6 py-12 flex justify-between items-center text-xs text-text-muted border-t border-white/5">
+      <footer className="max-w-4xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-text-muted border-t border-white/5">
         <p>© 2026 Mohit Sonu Dhangar</p>
-        <p className="flex items-center gap-2 italic">Crafted with simplicity <span className="text-primary">●</span></p>
+        <div className="flex items-center gap-4">
+          <PageViews />
+          <p className="flex items-center gap-2 italic">Crafted with simplicity <span className="text-primary">●</span></p>
+        </div>
       </footer>
     </div>
   );
