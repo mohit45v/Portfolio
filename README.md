@@ -27,7 +27,7 @@ Copy the values in `.env` and set them for your deployment:
 | Variable         | Required | Purpose                                                                 |
 | ---------------- | -------- | ----------------------------------------------------------------------- |
 | `VITE_SITE_URL`  | yes      | Absolute origin. Drives `canonical`, `og:url`, `og:image`, `robots.txt`, `sitemap.xml`. |
-| `VITE_API_URL`   | no       | Base URL of the portfolio API. When set, the view counter reads from `${VITE_API_URL}/v1/views`. |
+| `VITE_API_URL`   | no       | Base URL of the portfolio API. When set, the view counter reads `${VITE_API_URL}/v1/views` and the status pet polls `${VITE_API_URL}/v1/health`. |
 
 `robots.txt` and `sitemap.xml` are generated at build time from `VITE_SITE_URL`
 by a small plugin in `vite.config.js`, so the origin is defined in exactly one place.
@@ -42,6 +42,7 @@ src/
   components/
     ArchitectureDiagram.jsx     # per-project system diagram
     PageViews.jsx               # footer view counter
+    StatusPet.jsx               # draggable status daemon (build info + live health)
 public/
   og-image.png                  # 1200x630 social preview
 ```
@@ -53,13 +54,20 @@ public/
 - **Motion is opt-out.** `MotionConfig reducedMotion="user"` covers Framer Motion,
   Lenis smooth scroll is skipped entirely under `prefers-reduced-motion`, and the
   looping diagram animation falls back to a static marker.
-- **The view counter shows the real number.** No offsets, no padding.
+- **The view counter shows the real number.** No offsets, no padding. It stays
+  dormant until `VITE_API_URL` is set, rather than calling a dead endpoint.
+- **The status pet reports facts, not flattery.** It shows the real commit SHA and
+  deploy time (injected at build time from git / `VERCEL_GIT_COMMIT_SHA`), and once
+  `VITE_API_URL` is set it polls `/v1/health` and turns its eyes green / amber / red
+  with real uptime and p95 numbers.
 
 ## Roadmap
 
 - [ ] Move content behind a NestJS API (`/v1/projects`, `/v1/experience`, `/v1/views`)
       with a published OpenAPI spec, and consume it here with a static fallback.
-- [ ] Case studies rewritten around constraint → decision → tradeoff → measured result.
+- [ ] Case studies rewritten around constraint → decision → tradeoff → measured result,
+      with the shipped integrations (telephony, Meta/WhatsApp) as the substance of the
+      Akashic entry.
 - [ ] Pull in published writing from Hashnode / Medium.
 
 ## License
