@@ -6,6 +6,7 @@ import { Github, Linkedin, ExternalLink, MapPin, Activity, Code2, Rocket, Brain,
 import { GitHubCalendar } from 'react-github-calendar';
 import { ArchitectureDiagram } from './components/ArchitectureDiagram';
 import { PageViews } from './components/PageViews';
+import { StatusPet } from './components/StatusPet';
 import { useMediaQuery, usePrefersReducedMotion } from './hooks/useMediaQuery';
 
 const projects = [
@@ -488,6 +489,8 @@ const App = () => {
             <p className="flex items-center gap-2 italic">Crafted with simplicity <span className="text-primary">●</span></p>
           </div>
         </footer>
+
+        <StatusPet />
       </div>
     </MotionConfig>
   );

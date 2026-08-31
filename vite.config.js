@@ -1,6 +1,31 @@
+import { execSync } from 'node:child_process'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+
+/**
+ * Real facts about this build, injected as a compile-time constant so the status
+ * pet can report something verifiable without needing a backend. Vercel exposes
+ * the commit SHA as an env var; locally we ask git directly.
+ */
+const buildInfo = () => {
+  let sha = process.env.VERCEL_GIT_COMMIT_SHA || ''
+
+  if (!sha) {
+    try {
+      sha = execSync('git rev-parse HEAD', { stdio: ['ignore', 'pipe', 'ignore'] })
+        .toString()
+        .trim()
+    } catch {
+      sha = ''
+    }
+  }
+
+  return {
+    sha: sha ? sha.slice(0, 7) : 'dev',
+    builtAt: new Date().toISOString(),
+  }
+}
 
 /**
  * Emits robots.txt and sitemap.xml at build time so the absolute origin is
@@ -50,6 +75,9 @@ export default defineConfig(({ mode }) => {
   const origin = siteUrl.replace(/\/+$/, '')
 
   return {
+    define: {
+      __BUILD_INFO__: JSON.stringify(buildInfo()),
+    },
     plugins: [
       react(),
       tailwindcss(),

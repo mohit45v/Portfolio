@@ -60,7 +60,6 @@ public/
 - [ ] Move content behind a NestJS API (`/v1/projects`, `/v1/experience`, `/v1/views`)
       with a published OpenAPI spec, and consume it here with a static fallback.
 - [ ] Case studies rewritten around constraint → decision → tradeoff → measured result.
-- [ ] Resume PDF at `/resume.pdf`, linked above the fold.
 - [ ] Pull in published writing from Hashnode / Medium.
 
 ## License
