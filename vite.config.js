@@ -6,11 +6,10 @@ import tailwindcss from '@tailwindcss/vite'
  * Emits robots.txt and sitemap.xml at build time so the absolute origin is
  * defined once (VITE_SITE_URL) instead of being hardcoded in three files.
  */
-const seoFiles = (siteUrl) => ({
+const seoFiles = (origin) => ({
   name: 'emit-seo-files',
   apply: 'build',
   generateBundle() {
-    const origin = siteUrl.replace(/\/$/, '')
     const lastmod = new Date().toISOString().split('T')[0]
 
     this.emitFile({
@@ -48,7 +47,21 @@ export default defineConfig(({ mode }) => {
     )
   }
 
+  const origin = siteUrl.replace(/\/+$/, '')
+
   return {
-    plugins: [react(), tailwindcss(), seoFiles(siteUrl)],
+    plugins: [
+      react(),
+      tailwindcss(),
+      seoFiles(origin),
+      {
+        // Vite's built-in %VAR% substitution injects the raw .env value, so a stray
+        // trailing slash would yield "https://site.com//" in canonical and og:url.
+        // Doing the replacement here means the origin is normalised no matter what
+        // is written in .env.
+        name: 'inject-site-origin',
+        transformIndexHtml: (html) => html.replaceAll('%VITE_SITE_URL%', origin),
+      },
+    ],
   }
 })
