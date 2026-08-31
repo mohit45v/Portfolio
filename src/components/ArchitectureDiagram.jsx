@@ -1,28 +1,58 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import * as LucideIcons from 'lucide-react';
+import {
+  AppWindow,
+  Box,
+  BrainCircuit,
+  Database,
+  LayoutTemplate,
+  ServerCog,
+  Workflow,
+} from 'lucide-react';
+import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
+
+/**
+ * Explicit map rather than `import * as LucideIcons` + a dynamic key lookup.
+ * The namespace form defeats tree-shaking and pulled all ~1,800 lucide icons
+ * into the bundle (+780 kB). Add an entry here when a diagram needs a new icon.
+ */
+const ICONS = {
+  AppWindow,
+  BrainCircuit,
+  Database,
+  LayoutTemplate,
+  ServerCog,
+  Workflow,
+};
 
 const AnimatedArrow = () => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <div className="flex-1 flex items-center justify-center min-w-[40px] max-w-[100px] relative px-2">
       {/* Background track */}
       <div className="h-0.5 w-full bg-white/10 rounded-full" />
-      
-      {/* Animated dash */}
-      <motion.div
-        className="absolute h-1 w-8 bg-primary rounded-full blur-[1px]"
-        initial={{ left: 0, opacity: 0 }}
-        animate={{ 
-          left: ['0%', '100%'],
-          opacity: [0, 1, 1, 0]
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        style={{ transform: 'translateX(-50%)' }}
-      />
+
+      {/* Animated dash — a looping animation is exactly what reduced-motion users opt out of,
+          so render it as a static marker instead of suppressing the element entirely. */}
+      {prefersReducedMotion ? (
+        <div className="absolute h-1 w-8 bg-primary rounded-full blur-[1px] left-1/2 -translate-x-1/2" />
+      ) : (
+        <motion.div
+          className="absolute h-1 w-8 bg-primary rounded-full blur-[1px]"
+          initial={{ left: 0, opacity: 0 }}
+          animate={{
+            left: ['0%', '100%'],
+            opacity: [0, 1, 1, 0]
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{ transform: 'translateX(-50%)' }}
+        />
+      )}
       {/* Arrow head */}
       <div className="absolute right-0 w-2 h-2 border-t-2 border-r-2 border-white/20 transform rotate-45 -translate-y-[1px]" />
     </div>
@@ -36,7 +66,7 @@ export const ArchitectureDiagram = ({ nodes = [] }) => {
     <div className="my-6 p-6 rounded-2xl bg-[#0a0a0a] border border-white/10 overflow-x-auto scrollbar-hide">
       <div className="flex items-center justify-between min-w-max">
         {nodes.map((node, index) => {
-          const IconComponent = LucideIcons[node.icon] || LucideIcons.Box;
+          const IconComponent = ICONS[node.icon] ?? Box;
           
           return (
             <React.Fragment key={node.id}>

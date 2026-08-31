@@ -1,13 +1,68 @@
-# React + Vite
+# Portfolio — Mohit Sonu Dhangar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Source for my personal site: a single-page portfolio built with React 19, Vite 7 and Tailwind v4.
 
-Currently, two official plugins are available:
+**Live:** _set `VITE_SITE_URL` in `.env` and add the link here_
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Running locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-"# Portfolio" 
+```bash
+npm install
+npm run dev
+```
+
+| Script            | Purpose                                      |
+| ----------------- | -------------------------------------------- |
+| `npm run dev`     | Vite dev server with HMR                     |
+| `npm run build`   | Production build to `dist/`                  |
+| `npm run preview` | Serve the production build locally           |
+| `npm run lint`    | ESLint — must exit clean before a commit     |
+
+## Configuration
+
+Copy the values in `.env` and set them for your deployment:
+
+| Variable         | Required | Purpose                                                                 |
+| ---------------- | -------- | ----------------------------------------------------------------------- |
+| `VITE_SITE_URL`  | yes      | Absolute origin. Drives `canonical`, `og:url`, `og:image`, `robots.txt`, `sitemap.xml`. |
+| `VITE_API_URL`   | no       | Base URL of the portfolio API. When set, the view counter reads from `${VITE_API_URL}/v1/views`. |
+
+`robots.txt` and `sitemap.xml` are generated at build time from `VITE_SITE_URL`
+by a small plugin in `vite.config.js`, so the origin is defined in exactly one place.
+
+## Structure
+
+```
+src/
+  App.jsx                       # page composition + content data
+  index.css                     # Tailwind theme tokens and base styles
+  hooks/useMediaQuery.js        # matchMedia subscription + prefers-reduced-motion
+  components/
+    ArchitectureDiagram.jsx     # per-project system diagram
+    PageViews.jsx               # footer view counter
+public/
+  og-image.png                  # 1200x630 social preview
+```
+
+## Notes on choices
+
+- **Content lives as plain data at the top of `App.jsx`.** Small enough that a CMS
+  would cost more than it saves; the arrays are the single source of truth.
+- **Motion is opt-out.** `MotionConfig reducedMotion="user"` covers Framer Motion,
+  Lenis smooth scroll is skipped entirely under `prefers-reduced-motion`, and the
+  looping diagram animation falls back to a static marker.
+- **The view counter shows the real number.** No offsets, no padding.
+
+## Roadmap
+
+- [ ] Move content behind a NestJS API (`/v1/projects`, `/v1/experience`, `/v1/views`)
+      with a published OpenAPI spec, and consume it here with a static fallback.
+- [ ] Case studies rewritten around constraint → decision → tradeoff → measured result.
+- [ ] Resume PDF at `/resume.pdf`, linked above the fold.
+- [ ] Pull in published writing from Hashnode / Medium.
+
+## License
+
+MIT

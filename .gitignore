@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 ".gradle/" 
+
+# Personal resume source (kept local, not published)
+myinfo.txt
