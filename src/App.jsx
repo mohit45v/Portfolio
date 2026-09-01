@@ -4,6 +4,7 @@ import 'lenis/dist/lenis.css';
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { Github, Linkedin, ExternalLink, MapPin, Activity, Code2, Rocket, Brain, Menu, X, Network } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
+import { Analytics } from '@vercel/analytics/react';
 import { ArchitectureDiagram } from './components/ArchitectureDiagram';
 import { PageViews } from './components/PageViews';
 import { StatusPet } from './components/StatusPet';
@@ -491,6 +492,7 @@ const App = () => {
         </footer>
 
         <StatusPet />
+        <Analytics />
       </div>
     </MotionConfig>
   );
